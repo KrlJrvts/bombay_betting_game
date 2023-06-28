@@ -24,13 +24,13 @@ public class GameService {
             winAmount = betAmount * (99.0 / (100 - betNumber));
             String status = "You win";
             winNumber = betNumber;
-            return new GameResponse(betAmount, betNumber, winAmount, winNumber, status);
+            return new GameResponse(betAmount, betNumber, winAmount, winNumber, randomNumber,status);
         }
 
         winAmount = 0;
         String status = "You lose";
         winNumber = randomNumber;
-        return new GameResponse(betAmount, betNumber, winAmount, winNumber, status);
+        return new GameResponse(betAmount, betNumber, winAmount, winNumber, randomNumber, status);
 
     }
 

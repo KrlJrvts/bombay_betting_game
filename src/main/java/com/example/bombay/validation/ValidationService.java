@@ -1,8 +1,9 @@
 package com.example.bombay.validation;
 
 import com.example.bombay.infratstructure.exception.BusinessException;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ValidationService {
 
     public static void validateCorrectBetAmount(double betAmount) {

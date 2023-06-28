@@ -12,6 +12,7 @@ public class GameResponse {
     private int betNumber;
     private double winAmount;
     private int winNumber;
+    private int randomNumber;
     private String status;
 
 

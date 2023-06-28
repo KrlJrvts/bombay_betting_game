@@ -23,6 +23,9 @@ public class GamesController {
     @Resource
     private GamesService gamesService;
 
+    @Resource
+    private ValidationService validationService;
+
     @PostMapping("/game")
     @Operation(summary = "Play game by betAmount, betNumber", description = """
             User enters betAmount, betNumber. And will get automatically betAmount, betNumber, winAmount, winNumber, status.
@@ -43,6 +46,4 @@ public class GamesController {
         }
 
     }
-
-
 }
