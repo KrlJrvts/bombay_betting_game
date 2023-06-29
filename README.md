@@ -15,6 +15,8 @@ error scenarios.
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
+- [Test Coverage](#test-coverage)
+- [Additional Features](#additional-features)
 - [Technologies](#technologies)
 - [License](#license)
 
