@@ -1,0 +1,19 @@
+body {
+    background-color: #292C33 !important;
+    background-image: url("static/images/background.jpg") !important;
+    background-repeat: no-repeat !important;
+    background-position: center top !important;
+}
+
+h1 {
+    color: #fff !important;
+}
+
+h2 {
+    color: #fff !important;
+}
+
+label {
+    color: #fff !important;
+    font-size: 30px !important;
+}
