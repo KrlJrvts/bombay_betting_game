@@ -1,10 +1,9 @@
 package com.example.bombay.business;
 
-import com.example.bombay.infratstructure.error.ApiError;
 import com.example.bombay.business.dto.GameRequest;
 import com.example.bombay.business.dto.GameResponse;
+import com.example.bombay.infratstructure.error.ApiError;
 import com.example.bombay.infratstructure.exception.BusinessException;
-import com.example.bombay.validation.ValidationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,9 +25,6 @@ public class GamesController {
     @Resource
     private GamesService gamesService;
 
-    @Resource
-    private ValidationService validationService;
-
     @PostMapping("/game")
     @Operation(summary = "Play game by betAmount, betNumber", description = """
             User enters betAmount, betNumber. And will get automatically betAmount, betNumber, winAmount, winNumber, status.
@@ -47,6 +43,5 @@ public class GamesController {
             ApiError apiError = new ApiError(e.getMessage(), e.getErrorCode());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(apiError);
         }
-
     }
 }

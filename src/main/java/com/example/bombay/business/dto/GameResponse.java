@@ -14,6 +14,4 @@ public class GameResponse {
     private int winNumber;
     private int randomNumber;
     private String status;
-
-
 }

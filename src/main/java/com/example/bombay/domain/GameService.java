@@ -11,8 +11,8 @@ public class GameService {
 
     public GameResponse playGame(GameRequest gameRequest) {
 
-        int betNumber = gameRequest.getBetNumber();
         double betAmount = gameRequest.getBetAmount();
+        int betNumber = gameRequest.getBetNumber();
         double winAmount = 0;
         String status = "You win";
 
@@ -21,7 +21,7 @@ public class GameService {
         return getGameResponse(betNumber, betAmount, winAmount, status, randomNumber);
     }
 
-    private int getRandomNumber() {
+    public int getRandomNumber() {
         return new Random().nextInt(100) + 1;
     }
 
@@ -29,11 +29,11 @@ public class GameService {
         int winNumber;
         if (betNumber == 100) {
             winNumber = betNumber;
-        } else if (betNumber > randomNumber) {
-            winAmount = betAmount * (99.0 / (100 - betNumber));
-            winNumber = betNumber;
         } else if (betNumber == randomNumber) {
             winAmount = betAmount;
+            winNumber = betNumber;
+        } else if (betNumber > randomNumber) {
+            winAmount = betAmount * (99.0 / (100 - betNumber));
             winNumber = betNumber;
         } else {
             winNumber = randomNumber;

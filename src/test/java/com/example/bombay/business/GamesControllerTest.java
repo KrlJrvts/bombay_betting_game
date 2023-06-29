@@ -1,10 +1,8 @@
-package com.example.bombay;
+package com.example.bombay.business;
 
 import com.example.bombay.business.GamesController;
 import com.example.bombay.business.GamesService;
 import com.example.bombay.business.dto.GameRequest;
-import com.example.bombay.business.dto.GameResponse;
-import com.example.bombay.domain.GameService;
 import com.example.bombay.infratstructure.error.ApiError;
 import com.example.bombay.infratstructure.exception.BusinessException;
 import com.example.bombay.validation.ValidationService;
@@ -16,8 +14,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GamesControllerTest {
     @Mock
