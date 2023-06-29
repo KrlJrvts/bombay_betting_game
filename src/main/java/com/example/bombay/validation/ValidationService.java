@@ -17,6 +17,4 @@ public class ValidationService {
             throw new BusinessException(Error.INCORRECT_BET_NUMBER.getMessage(), Error.INCORRECT_BET_NUMBER.getErrorCode());
         }
     }
-
-
 }

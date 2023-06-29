@@ -9,6 +9,12 @@ import java.util.Random;
 @Service
 public class GameService {
 
+    private final Random random;
+
+    public GameService() {
+        this.random = new Random();
+    }
+
     public GameResponse playGame(GameRequest gameRequest) {
 
         double betAmount = gameRequest.getBetAmount();
@@ -22,7 +28,7 @@ public class GameService {
     }
 
     public int getRandomNumber() {
-        return new Random().nextInt(100) + 1;
+        return random.nextInt(100) + 1;
     }
 
     private static GameResponse getGameResponse(int betNumber, double betAmount, double winAmount, String status, int randomNumber) {
