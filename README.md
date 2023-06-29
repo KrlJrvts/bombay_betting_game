@@ -116,10 +116,26 @@ to bet on.
 
 ## Test Coverage
 
-The project has 100%  class test coverage. To run the tests, follow these steps:
+The project has 100%  class test coverage.
+
+To run the tests, follow these steps:
+
+1. Navigate to the test directory:
+
+```bash
+cd src/test/java
+```
+
+2. Run the from this directory.
 
 
-   
+## Additional features
+
+For this project, I have added the following feature:
+
+1. The application has a Swagger UI that can be accessed at the following URL: http://localhost:8080/swagger-ui.html
+2. The application has a custom error handler that returns a custom error response when an error occurs.
+3. The application has a custom index page that can be accessed at the following URL: http://localhost:8080/
 
 
 ## Technologies
