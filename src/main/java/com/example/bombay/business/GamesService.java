@@ -15,11 +15,6 @@ public class GamesService {
 
     public GameResponse playGame(GameRequest gameRequest) {
 
-        double betAmount = gameRequest.getBetAmount();
-        int betNumber = gameRequest.getBetNumber();
-
-        ValidationService.validateCorrectBetAmount(betAmount);
-        ValidationService.validateCorrectBetNumber(betNumber);
 
         return gameService.playGame(gameRequest);
     }

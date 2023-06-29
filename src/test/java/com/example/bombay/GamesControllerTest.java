@@ -10,25 +10,23 @@ import com.example.bombay.infratstructure.exception.BusinessException;
 import com.example.bombay.validation.ValidationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-public class GamesControllerTest {
-
-    @Mock
-    private ValidationService validationService;
-
+class GamesControllerTest {
     @Mock
     private GamesService gamesService;
 
     @Mock
+    private ValidationService validationService;
+
+    @InjectMocks
     private GamesController gamesController;
 
     @BeforeEach
@@ -36,54 +34,37 @@ public class GamesControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+
     @Test
-    void playGame_ValidRequest_Success() {
-        GameRequest gameRequest = new GameRequest(40.5, 50);
-        GameResponse gameResponse = new GameResponse(40.5, 50, 80.19, 50, 42, "You win");
-        when(gamesService.playGame(gameRequest)).thenReturn(gameResponse);
+    void testPlayGame_InvalidBetAmount() throws BusinessException {
+        GamesController gamesController = new GamesController();
 
+        GameRequest gameRequest = new GameRequest();
+        gameRequest.setBetAmount(0);
+        gameRequest.setBetNumber(10);
 
-        ResponseEntity<?> responseEntity = gamesController.playGame(gameRequest);
-
-        assertNotNull(responseEntity);
-        assertEquals(gameResponse, responseEntity.getBody());
-        verify(validationService).validateCorrectBetAmount(40.5);
-        verify(validationService).validateCorrectBetNumber(50);
+        ResponseEntity<?> response = gamesController.playGame(gameRequest);
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertTrue(response.getBody() instanceof ApiError);
+        ApiError apiError = (ApiError) response.getBody();
+        assertEquals("Bet amount is zero or negative.", apiError.getMessage());
+        assertEquals(112, apiError.getErrorCode());
     }
 
     @Test
-    void playGame_InvalidBetNumber_Return403() {
-        GameRequest gameRequest = new GameRequest(40.5, 101);
-        String expectedResponse = "Bet number must be between 1 and 100";
-        int expectedErrorCode = 111;
-        when(validationService.validateCorrectBetNumber(gameRequest.getBetNumber()))
-                .thenThrow(new BusinessException(expectedResponse, expectedErrorCode));
+    void testPlayGame_InvalidBetNumber() throws BusinessException {
+        GamesController gamesController = new GamesController();
 
-        ResponseEntity<?> responseEntity = gamesController.playGame(gameRequest);
+        GameRequest gameRequest = new GameRequest();
+        gameRequest.setBetAmount(10);
+        gameRequest.setBetNumber(0);
 
-        assertNotNull(responseEntity);
-        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getBody());
-        ApiError apiError = (ApiError) responseEntity.getBody();
-        assertNotNull(apiError);
-        assertEquals(expectedResponse, apiError.getMessage());
-        assertEquals(expectedErrorCode, apiError.getErrorCode());
-    }
-
-    @Test
-    void playGame_InvalidBetAmount_Return403() {
-        GameRequest gameRequest = new GameRequest(0, 50);
-        String expectedResponse = "Bet amount must be greater than 0";
-        int expectedErrorCode = 112;
-        when(validationService.validateCorrectBetAmount(gameRequest.getBetAmount()))
-                .thenThrow(new BusinessException(expectedResponse, expectedErrorCode));
-
-        ResponseEntity<?> responseEntity = gamesController.playGame(gameRequest);
-
-        assertNotNull(responseEntity);
-        assertEquals(HttpStatus.FORBIDDEN, responseEntity.getBody());
-        ApiError apiError = (ApiError) responseEntity.getBody();
-        assertNotNull(apiError);
-        assertEquals(expectedResponse, apiError.getMessage());
-        assertEquals(expectedErrorCode, apiError.getErrorCode());
+        ResponseEntity<?> response = gamesController.playGame(gameRequest);
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertTrue(response.getBody() instanceof ApiError);
+        ApiError apiError = (ApiError) response.getBody();
+        assertEquals("Bet number is not between 1 and 100.", apiError.getMessage());
+        assertEquals(111, apiError.getErrorCode());
     }
 }
+

@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.example.bombay.validation.ValidationService.validateCorrectBetAmount;
+import static com.example.bombay.validation.ValidationService.validateCorrectBetNumber;
+
 @RestController
 public class GamesController {
 
@@ -35,8 +38,8 @@ public class GamesController {
             @ApiResponse(responseCode = "403", description = "Bet amount is not valid", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public ResponseEntity<?> playGame(@RequestBody GameRequest gameRequest) {
         try {
-            ValidationService.validateCorrectBetAmount(gameRequest.getBetAmount());
-            ValidationService.validateCorrectBetNumber(gameRequest.getBetNumber());
+            validateCorrectBetAmount(gameRequest.getBetAmount());
+            validateCorrectBetNumber(gameRequest.getBetNumber());
 
             GameResponse gameResponse = gamesService.playGame(gameRequest);
             return ResponseEntity.ok(gameResponse);
