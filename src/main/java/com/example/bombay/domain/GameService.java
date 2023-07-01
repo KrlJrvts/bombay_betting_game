@@ -33,12 +33,7 @@ public class GameService {
 
     private static GameResponse getGameResponse(int betNumber, double betAmount, double winAmount, String status, int randomNumber) {
         int winNumber;
-        if (betNumber == 100) {
-            winNumber = betNumber;
-        } else if (betNumber == randomNumber) {
-            winAmount = betAmount;
-            winNumber = betNumber;
-        } else if (betNumber > randomNumber) {
+        if (betNumber > randomNumber) {
             winAmount = betAmount * (99.0 / (100 - betNumber));
             winNumber = betNumber;
         } else {
