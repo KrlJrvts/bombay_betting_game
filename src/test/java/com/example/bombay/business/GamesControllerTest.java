@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GamesControllerTest {
-    @Mock
-    private GamesService gamesService;
-
-    @Mock
-    private ValidationService validationService;
-
-    @InjectMocks
-    private GamesController gamesController;
+//    @Mock
+//    private GamesService gamesService;
+//
+//    @Mock
+//    private ValidationService validationService;
+//
+//    @InjectMocks
+//    private GamesController gamesController;
 
     @BeforeEach
     void setUp() {
