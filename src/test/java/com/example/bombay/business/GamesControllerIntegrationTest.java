@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,10 +29,10 @@ import static org.mockito.Mockito.*;
 @WebMvcTest(GamesController.class)
 class GamesControllerIntegrationTest {
 
-    @Mock
+    @MockBean
     private GamesService gamesService;
 
-    @Mock
+    @MockBean
     private ValidationService validationService;
 
     @InjectMocks
@@ -70,6 +71,7 @@ class GamesControllerIntegrationTest {
     void testPlayGame_InvalidBetAmount() throws Exception {
         GameRequest request = new GameRequest(-10.0, 50);
         ApiError error = new ApiError(Error.INCORRECT_BET_AMOUNT.getMessage(), Error.INCORRECT_BET_AMOUNT.getErrorCode());
+
 
         doThrow(new BusinessException(Error.INCORRECT_BET_AMOUNT.getMessage(), Error.INCORRECT_BET_AMOUNT.getErrorCode()))
                 .when(validationService);

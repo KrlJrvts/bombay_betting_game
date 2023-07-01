@@ -9,13 +9,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+
 
 import static com.example.bombay.validation.ValidationService.validateCorrectBetAmount;
 import static com.example.bombay.validation.ValidationService.validateCorrectBetNumber;
@@ -23,16 +24,14 @@ import static com.example.bombay.validation.ValidationService.validateCorrectBet
 @RestController
 public class GamesController {
 
-    @Resource
+    @Autowired
     private GamesService gamesService;
 
     @PostMapping("/game")
     @Operation(summary = "Play game by betAmount, betNumber", description = """
             User enters betAmount, betNumber. And will get automatically betAmount, betNumber, winAmount, winNumber, status.
             System also checks if betAmount and betNumber are valid. If it is, error with errorCode 111 is thrown""")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Game completed successfully!"),
-            @ApiResponse(responseCode = "403", description = "Bet amount is not valid", content = @Content(schema = @Schema(implementation = ApiError.class)))})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Game completed successfully!"), @ApiResponse(responseCode = "403", description = "Bet amount is not valid", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public ResponseEntity<?> playGame(@RequestBody GameRequest gameRequest) {
         try {
             validateCorrectBetAmount(gameRequest.getBetAmount());
