@@ -36,6 +36,8 @@ class GamesControllerTest {
 
     @Test
     void testPlayGame_Success() {
+        double betAmount = 99.0;
+        int betNumber = 99;
         GameRequest gameRequest = new GameRequest();
         gameRequest.setBetAmount(99);
         gameRequest.setBetNumber(99);
@@ -49,7 +51,7 @@ class GamesControllerTest {
         mockResponse.setStatus("You win");
         when(gamesService.playGame(gameRequest)).thenReturn(mockResponse);
 
-        ResponseEntity<?> response = gamesController.playGame(gameRequest);
+        ResponseEntity<?> response = gamesController.playGame(betAmount, betNumber);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertTrue(response.getBody() instanceof GameResponse);
         GameResponse gameResponse = (GameResponse) response.getBody();
@@ -63,13 +65,16 @@ class GamesControllerTest {
 
     @Test
     void testPlayGame_InvalidBetAmount() throws BusinessException {
-        GamesController gamesController = new GamesController();
-
+        double betAmount = 0;
+        int betNumber = 99;
         GameRequest gameRequest = new GameRequest();
+
+
+
         gameRequest.setBetAmount(0);
         gameRequest.setBetNumber(10);
 
-        ResponseEntity<?> response = gamesController.playGame(gameRequest);
+        ResponseEntity<?> response = gamesController.playGame(betAmount, betNumber);
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertTrue(response.getBody() instanceof ApiError);
         ApiError apiError = (ApiError) response.getBody();
@@ -79,13 +84,15 @@ class GamesControllerTest {
 
     @Test
     void testPlayGame_InvalidBetNumber() throws BusinessException {
-        GamesController gamesController = new GamesController();
+
+        double betAmount = 10;
+        int betNumber = 0;
 
         GameRequest gameRequest = new GameRequest();
         gameRequest.setBetAmount(10);
         gameRequest.setBetNumber(0);
 
-        ResponseEntity<?> response = gamesController.playGame(gameRequest);
+        ResponseEntity<?> response = gamesController.playGame(betAmount, betNumber);
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertTrue(response.getBody() instanceof ApiError);
         ApiError apiError = (ApiError) response.getBody();

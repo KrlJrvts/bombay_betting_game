@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 import static com.example.bombay.validation.ValidationService.validateCorrectBetAmount;
@@ -27,17 +24,23 @@ public class GamesController {
     @Autowired
     private GamesService gamesService;
 
-    @PostMapping("/game")
+
+    @GetMapping("/status")
+    public String status() {
+        return "OK";
+    }
+
+    @GetMapping("/game")
     @Operation(summary = "Play game by betAmount, betNumber", description = """
             User enters betAmount, betNumber. And will get automatically betAmount, betNumber, winAmount, winNumber, status.
             System also checks if betAmount and betNumber are valid. If it is, error with errorCode 111 is thrown""")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Game completed successfully!"), @ApiResponse(responseCode = "403", description = "Bet amount is not valid", content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    public ResponseEntity<?> playGame(@RequestBody GameRequest gameRequest) {
+    public ResponseEntity<?> playGame(@RequestParam Double betAmount, @RequestParam Integer betNumber) {
         try {
-            validateCorrectBetAmount(gameRequest.getBetAmount());
-            validateCorrectBetNumber(gameRequest.getBetNumber());
+            validateCorrectBetAmount(betAmount);
+            validateCorrectBetNumber(betNumber);
 
-            GameResponse gameResponse = gamesService.playGame(gameRequest);
+            GameResponse gameResponse = gamesService.playGame(new GameRequest(betAmount, betNumber));
             return ResponseEntity.ok(gameResponse);
         } catch (BusinessException e) {
             ApiError apiError = new ApiError(e.getMessage(), e.getErrorCode());
