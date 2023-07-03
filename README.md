@@ -139,9 +139,9 @@ cd src/test/java
 3. The test results will be displayed in the console.
 
 #### Notice: 
-The `GameControllerIntegrationTest` have tests `testPlayGame_InvalidBetAmount` and `testPlayGame_InvalidBetNumber` that 
-have to fail. This is because the `GameController` must return a custom error response when an error occurs. The tests 
-are designed to fail to ensure that the error response is returned correctly.
+The `GameControllerIntegrationTest` have 3 tests. 2 of them: `testPlayGame_InvalidBetAmount` and 
+`testPlayGame_InvalidBetNumber` that have to fail. This is because the `GameController` must return a custom error 
+response when an error occurs. The tests are designed to fail to ensure that the error response is returned correctly.
 
 ## Additional features
 
