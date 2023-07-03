@@ -129,6 +129,7 @@ cd src/test/java
 ```
 
 2. Run the from this directory.
+3. The test results will be displayed in the console.
 
 
 ## Additional features
