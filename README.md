@@ -120,6 +120,13 @@ to bet on.
 
 The project has 100%  class test coverage.
 
+There are 5 test classes in the project:
+- `GameControllerTest`: Tests the `GameController` class elements.
+- `GameServiceTest`: Tests the `GameService` class elements.
+- `GameControllerIntegrationTest`: Tests the `GameControllerIntegrationTest` class.
+- `GameServiceIntegrationTest`: Tests the `GameServiceIntegrationTest` class.
+- `RTPTests`: Tests the `RTP` of a game.
+
 To run the tests, follow these steps:
 
 1. Navigate to the test directory:
