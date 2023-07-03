@@ -135,9 +135,13 @@ To run the tests, follow these steps:
 cd src/test/java
 ```
 
-2. Run the from this directory.
+2. Run test from this directory.
 3. The test results will be displayed in the console.
 
+#### Notice: 
+The `GameControllerIntegrationTest` have tests `testPlayGame_InvalidBetAmount` and `testPlayGame_InvalidBetNumber` that 
+have to fail. This is because the `GameController` must return a custom error response when an error occurs. The tests 
+are designed to fail to ensure that the error response is returned correctly.
 
 ## Additional features
 
