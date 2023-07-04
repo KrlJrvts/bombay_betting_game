@@ -8,7 +8,7 @@ This project is a game application where users can play a betting game by enteri
 The application will generate a random number and compare it with the user's bet number to determine the outcome of 
 the game. The user will receive information about their bet amount, bet number, win amount, win number, random number, 
 and status (win or lose). The application also includes validation checks for the bet amount and bet number and handles 
-error scenarios.
+error scenarios (incorrect betAmount or betNumber).
 
 ## Table of Contents
 
